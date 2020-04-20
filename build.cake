@@ -46,7 +46,7 @@ Task("UpdateAssemblyInfo")
         UpdateAssemblyInfo = true,
         OutputType = GitVersionOutput.Json
     });
-    Information("PathIs -> {0}", new FilePath("src/CiTest_Client/CiTest_Client.csproj"))
+    Information("PathIs -> {0}", new FilePath("src/CiTest_Client/CiTest_Client.csproj"));
     var clientAssemblyInfo = GetVersionNumber( new FilePath("src/CiTest_Client/CiTest_Client.csproj"));
     //Information("ClientAssemblyVersion (Addin) -> {0}", clientAssemblyInfo);
 
