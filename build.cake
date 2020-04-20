@@ -120,7 +120,6 @@ Task("Pack")
         RequireLicenseAcceptance = true,
         Files                    = new [] {
             new NuSpecContent { Source = "netcoreapp3.1/TestForCi.Client.dll", Target = "lib/netcoreapp3.1" },
-            new NuSpecContent { Source = "netcoreapp3.1/TestForCi.Client.xml", Target = "lib/netcoreapp3.1" },
         },
         Dependencies             = new [] {
             new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" }
