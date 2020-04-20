@@ -1,5 +1,6 @@
 ﻿#tool "nuget:?package=GitVersion.CommandLine"
 #addin "nuget:?package=Cake.FileHelpers"
+#addin nuget:?package=Cake.VersionReader
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -46,8 +47,8 @@ Task("UpdateAssemblyInfo")
         OutputType = GitVersionOutput.Json
     });
 
-    var clientAssemblyInfo = ParseAssemblyInfo("src/CiTest_Client/CiTest_Client.csproj");
-    Information("ClientAssemblyVersion -> {0}", clientAssemblyInfo.AssemblyVersion);
+    var clientAssemblyInfo = GetVersionNumber("src/CiTest_Client/CiTest_Client.csproj");
+    Information("ClientAssemblyVersion (Addin) -> {0}", clientAssemblyInfo);
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
 
