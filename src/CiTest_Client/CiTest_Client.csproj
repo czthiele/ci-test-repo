@@ -8,13 +8,10 @@
 <PropertyGroup Label="Assembly information">
   <AssemblyTitle>Just a test project.</AssemblyTitle>
   <AssemblyName>TestForCi.Client</AssemblyName>
-  <AssemblyVersion>1.1.0</AssemblyVersion>
   <Company>Alex GmbH</Company>
   <Copyright>Copyright © 2020 $(Company)</Copyright>
   <Description>Test Project for CI
   </Description>
-  <FileVersion>$(AssemblyVersion)</FileVersion>
-  <InformationalVersion>$(AssemblyVersion)-alpha0001</InformationalVersion>
   <NeutralLanguage>en</NeutralLanguage>
 </PropertyGroup>
 
@@ -37,7 +34,6 @@
   <PackageProjectUrl>https://github.com/czthiele/ci-test-repo</PackageProjectUrl>
   <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   <PackageTags>Alex TestForCi.Client</PackageTags>
-  <Version>$(InformationalVersion)</Version>
 </PropertyGroup>
 
 </Project>
