@@ -46,8 +46,8 @@ Task("UpdateAssemblyInfo")
         UpdateAssemblyInfo = true,
         OutputType = GitVersionOutput.Json
     });
-
-    var clientAssemblyInfo = GetVersionNumber("src/CiTest_Client/CiTest_Client.csproj");
+    Information("PathIs -> {0}", new FilePath("src/CiTest_Client/CiTest_Client.csproj"))
+    var clientAssemblyInfo = GetVersionNumber( new FilePath("src/CiTest_Client/CiTest_Client.csproj"));
     //Information("ClientAssemblyVersion (Addin) -> {0}", clientAssemblyInfo);
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
