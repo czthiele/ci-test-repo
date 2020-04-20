@@ -46,6 +46,9 @@ Task("UpdateAssemblyInfo")
         OutputType = GitVersionOutput.Json
     });
 
+    var clientAssemblyInfo = ParseAssemblyInfo("CiTest_Client/CiTest_Client.csproj");
+    Information("ClientAssemblyVersion -> {0}", clientAssemblyInfo.AssemblyVersion);
+    
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
 
     Information("AssemblyVersion -> {0}", gitVersionInfo.AssemblySemVer);
