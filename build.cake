@@ -15,7 +15,8 @@ var configuration = Argument("configuration", "Release");
 // Define directories.
 var srcDir = Directory("./src");
 var solutionFile = srcDir + File("CiTest.sln");
-var buildDir = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
+var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("bin") + Directory(configuration);
+var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
 
 var nugetVersion = "0.0.0";
@@ -78,7 +79,8 @@ Task("AppVeyorSetup")
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectory(buildDir);
+    CleanDirectory(buildDir_Definitions);
+    CleanDirectory(buildDir_Client);
     CleanDirectory(artifactsDir);
 });
 
@@ -98,7 +100,39 @@ Task("Build")
         settings.SetConfiguration(configuration));
 });
 
-Task("Pack")
+Task("Pack_Definitions")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
+
+    var nuGetPackSettings = new NuGetPackSettings {
+        Id                       = "TestForCi.Definitions",
+        Version                  = nugetVersion,
+        Title                    = "Just test title",
+        Authors                  = new[] {"Alex GmbH"},
+        Owners                   = new[] {"Alex GmbH"},
+        Description              = "Test description definitions",
+        Summary                  = "Test summary definitions",
+        ProjectUrl               = new Uri("https://github.com/czthiele/ci-test-repo"),
+        LicenseUrl               = new Uri("https://github.com/czthiele/ci-test-repo/blob/master/src/CiTest_Client/License.txt"),
+        Copyright                = string.Format("Copyright © {0}",DateTime.Now.Year),
+        ReleaseNotes             = releaseNotes,
+        Tags                     = new [] {"TestTag definitions"},
+        RequireLicenseAcceptance = true,
+        Files                    = new [] {
+            new NuSpecContent { Source = "netcoreapp3.1/TestForCi.Definitions.dll", Target = "lib/netcoreapp3.1" },
+        },
+        Dependencies             = new [] {
+            new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" }
+        },
+        BasePath                 = buildDir_Definitions,
+        OutputDirectory          = artifactsDir
+    };
+    NuGetPack(nuGetPackSettings);
+});
+
+Task("Pack_Client")
     .IsDependentOn("Build")
     .Does(() =>
 {
@@ -124,7 +158,7 @@ Task("Pack")
         Dependencies             = new [] {
             new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" }
         },
-        BasePath                 = buildDir,
+        BasePath                 = buildDir_Client,
         OutputDirectory          = artifactsDir
     };
     NuGetPack(nuGetPackSettings);
