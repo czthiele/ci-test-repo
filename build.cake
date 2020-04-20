@@ -42,14 +42,9 @@ Task("UpdateAssemblyInfo")
     .Does(() =>
 {
     gitVersionInfo = GitVersion(new GitVersionSettings {
-        UpdateAssemblyInfo = false,
+        UpdateAssemblyInfo = true,
         OutputType = GitVersionOutput.Json
     });
-
-    var clientAssemblyInfo = ParseAssemblyInfo("src/CiTest_Client/CiTest_Client.csproj");
-    Information("AssemblyVersion (Addin) -> {0}", clientAssemblyInfo.AssemblyVersion);
-    Information("AssemblyFileVersion (Addin) -> {0}", clientAssemblyInfo.AssemblyFileVersion);
-    Information("AssemblyInformationalVersion (Addin) -> {0}", clientAssemblyInfo.AssemblyInformationalVersion);
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
 
