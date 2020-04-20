@@ -44,7 +44,7 @@ Task("UpdateAssemblyInfo")
     gitVersionInfo = GitVersion(new GitVersionSettings {
         UpdateAssemblyInfo = true,
         OutputType = GitVersionOutput.Json,
-        WorkingDirectory = "/src"
+        WorkingDirectory = srcDir
     });
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
