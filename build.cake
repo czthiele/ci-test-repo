@@ -15,7 +15,7 @@ var configuration = Argument("configuration", "Release");
 // Define directories.
 var srcDir = Directory("./src");
 var solutionFile = srcDir + File("CiTest.sln");
-var buildDir = srcDir + Directory("bin") + Directory(configuration);
+var buildDir = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
 
 var nugetVersion = "0.0.0";

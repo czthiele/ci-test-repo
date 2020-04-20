@@ -22,6 +22,10 @@
   <None Include="license.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
 </ItemGroup>
 
+<ItemGroup>
+  <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+</ItemGroup>
+
 <PropertyGroup Label="NuGet package specifications">
   <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb; .xml;</AllowedOutputExtensionsInPackageBuildOutputFolder>
   <Authors>$(Company)</Authors>
