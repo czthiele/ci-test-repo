@@ -146,7 +146,7 @@ Task("Pack_Client")
     .IsDependentOn("Pack_Definitions")
     .Does(() =>
 {
-    var clientAssemblyInfo2 = ParseAssemblyInfo("./src/CiTest_Client/bin/Release/netcoreapp3.1/TestForCi.Client.dll");
+    var clientAssemblyInfo2 = ParseAssemblyInfo("./src/CiTest_Client/AssemblyInfo.cs");
     Information("AssemblyVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyVersion);
     Information("AssemblyFileVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyFileVersion);
     Information("AssemblyInformationalVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyInformationalVersion);
