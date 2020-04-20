@@ -8,7 +8,7 @@
 <PropertyGroup Label="Assembly information">
   <AssemblyTitle>Just a test project.</AssemblyTitle>
   <AssemblyName>TestForCi.Client</AssemblyName>
-  <AssemblyVersion>1.0.0</AssemblyVersion>
+  <AssemblyVersion>1.1.0</AssemblyVersion>
   <Company>Alex GmbH</Company>
   <Copyright>Copyright © 2020 $(Company)</Copyright>
   <Description>Test Project for CI
