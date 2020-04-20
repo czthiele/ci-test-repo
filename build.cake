@@ -130,6 +130,11 @@ Task("Pack_Definitions")
         OutputDirectory          = artifactsDir
     };
     NuGetPack(nuGetPackSettings);
+
+    if (BuildSystem.IsRunningOnAppVeyor)
+    {
+      BuildSystem.AppVeyor.UploadArtifact("artifacts/TestForCi.Definitions.0.1.0.nupkg");
+    }
 });
 
 Task("Pack_Client")
