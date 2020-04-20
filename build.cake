@@ -133,7 +133,7 @@ Task("Pack_Definitions")
 });
 
 Task("Pack_Client")
-    .IsDependentOn("Build")
+    .IsDependentOn("Pack_Definitions")
     .Does(() =>
 {
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
@@ -170,7 +170,8 @@ Task("Pack_Client")
 
 Task("Default")
     .IsDependentOn("AppVeyorSetup")
-    .IsDependentOn("Pack");
+    .IsDependentOn("Pack_Client")
+    .IsDependentOn("Pack_Definitions");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
