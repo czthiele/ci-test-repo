@@ -161,7 +161,8 @@ Task("Pack_Client")
             new NuSpecContent { Source = "netcoreapp3.1/TestForCi.Client.dll", Target = "lib/netcoreapp3.1" },
         },
         Dependencies             = new [] {
-            new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" }
+            new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" },
+            new NuSpecDependency { Id = "TestForCi.Definitions", Version = "0.1.0" }
         },
         BasePath                 = buildDir_Client,
         OutputDirectory          = artifactsDir

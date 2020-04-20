@@ -1,4 +1,5 @@
 ﻿using System;
+using CiTest_Definitions;
 
 namespace CiTest_Client
 {
@@ -6,7 +7,7 @@ namespace CiTest_Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine(TestDefinitions.TestString);
                  }
     }
 }
