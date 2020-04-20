@@ -18,10 +18,6 @@
   <NeutralLanguage>en</NeutralLanguage>
 </PropertyGroup>
 
-<PropertyGroup>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-</PropertyGroup>
-
 <ItemGroup>
   <None Include="license.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
 </ItemGroup>
