@@ -1,6 +1,5 @@
 ﻿#tool "nuget:?package=GitVersion.CommandLine"
 #addin "nuget:?package=Cake.FileHelpers"
-#addin nuget:?package=Cake.VersionReader
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -46,9 +45,11 @@ Task("UpdateAssemblyInfo")
         UpdateAssemblyInfo = true,
         OutputType = GitVersionOutput.Json
     });
-    Information("PathIs -> {0}", new FilePath("src/CiTest_Client/CiTest_Client.csproj"));
-    var clientAssemblyInfo = GetVersionNumber( new FilePath("src/CiTest_Client/CiTest_Client.csproj"));
-    //Information("ClientAssemblyVersion (Addin) -> {0}", clientAssemblyInfo);
+
+    var clientAssemblyInfo = ParseAssemblyInfo("src/CiTest_Client/CiTest_Client.csproj");
+    Information("AssemblyVersion (Addin) -> {0}", clientAssemblyInfo.AssemblyVersion);
+    Information("AssemblyFileVersion (Addin) -> {0}", clientAssemblyInfo.AssemblyFileVersion);
+    Information("AssemblyInformationalVersion (Addin) -> {0}", clientAssemblyInfo.AssemblyInformationalVersion);
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
 
@@ -145,6 +146,11 @@ Task("Pack_Client")
     .IsDependentOn("Pack_Definitions")
     .Does(() =>
 {
+    var clientAssemblyInfo2 = ParseAssemblyInfo(buildDir_Client + Directory("netcoreapp3.1/TestForCi.Client.dll"));
+    Information("AssemblyVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyVersion);
+    Information("AssemblyFileVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyFileVersion);
+    Information("AssemblyInformationalVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyInformationalVersion);
+
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
 
     var nuGetPackSettings = new NuGetPackSettings {
