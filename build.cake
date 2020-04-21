@@ -170,8 +170,8 @@ Task("Pack_Client")
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
     var licenseFile = new NuSpecLicense
     {
-        type = "file",
-        value = FilePath("License_test.txt")
+        Type = "file",
+        Value = "License_test.txt"
     };
 
     var nuGetPackSettings = new NuGetPackSettings {
