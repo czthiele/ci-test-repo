@@ -108,7 +108,7 @@ Task("Pack_Definitions")
     .IsDependentOn("Build_Definitions")
     .Does(() =>
 {
-    nugetVersion_Definitions = GetVersionNumber(buildDir_Definitions + Directory("net48") + File("TestForCi.Definitions.dll"));
+    nugetVersion_Definitions = GetAssemblyVersion(buildDir_Definitions, "TestForCi.Definitions.dll");
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
 
     var nuGetPackSettings = new NuGetPackSettings {
@@ -166,7 +166,7 @@ Task("Pack_Client")
     .IsDependentOn("Build_Client")
     .Does(() =>
 {
-    var nugetVersion_Client = GetVersionNumber(buildDir_Client + Directory("net48") + File("TestForCi.Client.dll"));
+    var nugetVersion_Client = GetAssemblyVersion(buildDir_Client, "TestForCi.Client.dll");
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
 
     var nuGetPackSettings = new NuGetPackSettings {
@@ -221,3 +221,8 @@ Task("Default")
 //////////////////////////////////////////////////////////////////////
 
 RunTarget(target);
+
+string GetAssemblyVersion(DirectoryPath buildDir, string assemblyName)
+{
+    return GetVersionNumber(new FilePath(GetSubDirectories(buildDir).First() + "/" + assemblyName));
+}
