@@ -21,8 +21,8 @@ var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("
 var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
 
-var nugetVersion_Client = FileReadText(new FilePath("src/CiTest_Client/Version.yml"));
-var nugetVersion_Definitions = FileReadText(new FilePath("src/CiTest_Definitions/Version.yml"));
+var nugetVersion_Client = FileReadLines(new FilePath("src/CiTest_Client/Version.yml"))[0];
+var nugetVersion_Definitions = FileReadLines(new FilePath("src/CiTest_Definitions/Version.yml"))[0];
 
 var nugetVersion = "0.0.0";
 var isDeveloperBuild = BuildSystem.IsLocalBuild;
@@ -52,7 +52,7 @@ Task("UpdateAssemblyInfo")
         OutputType = GitVersionOutput.Json
     });
 
-    Information("Location of nuget -> {0}", ("artifacts/TestForCi.Client." + nugetVersion_Client + ".nupkg").Replace(System.Environment.NewLine, "replacement text"));
+    Information("Location of nuget -> {0}", ("artifacts/TestForCi.Client." + nugetVersion_Client + ".nupkg"));
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
     Information("nugetVersion_Client -> {0}", nugetVersion_Client);
     Information("nugetVersion_Definitions -> {0}", nugetVersion_Definitions);
