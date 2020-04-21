@@ -52,7 +52,7 @@ Task("UpdateAssemblyInfo")
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
     Information("Path test -> {0}", MakeAbsolute(Directory("./src")).FullPath + "/CiTest_Client/CiTest_Client.csproj");
-    Information("Full version -> {}", GetVersionNumber(MakeAbsolute(Directory("./src")).FullPath + "/CiTest_Client/CiTest_Client.csproj"))
+    Information("Full version -> {}", GetVersionNumber(MakeAbsolute(Directory("./src")).FullPath + "/CiTest_Client/CiTest_Client.csproj"));
     Information("AssemblyVersion -> {0}", gitVersionInfo.AssemblySemVer);
     Information("AssemblyFileVersion -> {0}", $"{gitVersionInfo.MajorMinorPatch}.0");
     Information("AssemblyInformationalVersion -> {0}", gitVersionInfo.InformationalVersion);
