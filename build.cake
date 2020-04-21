@@ -129,7 +129,12 @@ Task("Pack_Definitions")
         Tags                     = new [] {"TestTag definitions"},
         RequireLicenseAcceptance = true,
         Files                    = new [] {
+            new NuSpecContent { Source = "net48/TestForCi.Definitions.dll", Target = "lib/net48" },
+            new NuSpecContent { Source = "net48/TestForCi.Definitions.xml", Target = "lib/net48" },
+            new NuSpecContent { Source = "netstandard2.0/TestForCi.Definitions.dll", Target = "lib/netstandard2.0" },
+            new NuSpecContent { Source = "netstandard2.0/TestForCi.Definitions.xml", Target = "lib/netstandard2.0" },
             new NuSpecContent { Source = "netcoreapp3.1/TestForCi.Definitions.dll", Target = "lib/netcoreapp3.1" },
+            new NuSpecContent { Source = "netcoreapp3.1/TestForCi.Definitions.xml", Target = "lib/netcoreapp3.1" },
         },
         Dependencies             = new [] {
             new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" }
