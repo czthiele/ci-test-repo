@@ -171,7 +171,7 @@ Task("Pack_Client")
     var licenseFile = new NuSpecLicense
     {
         Type = "file",
-        Value = "License.txt"
+        Value = "license.txt"
     };
 
     var nuGetPackSettings = new NuGetPackSettings {
