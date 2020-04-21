@@ -22,7 +22,7 @@ var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("
 var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
 
-var nugetVersion_Definitions = "0.0.0"
+var nugetVersion_Definitions = "0.0.0";
 var nugetVersion = "0.0.0";
 var isDeveloperBuild = BuildSystem.IsLocalBuild;
 
