@@ -15,6 +15,7 @@ var configuration = Argument("configuration", "Release");
 // Define directories.
 var srcDir = Directory("./src");
 var solutionFile = srcDir + File("CiTest.sln");
+var projectFileDir = srcDir + Directory(CiTest_Definitions) + File("CiTest_Definitions.csproj");
 var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("bin") + Directory(configuration);
 var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
@@ -101,7 +102,7 @@ Task("Build")
     .IsDependentOn("UpdateAssemblyInfo")
     .Does(() =>
 {
-    MSBuild(solutionFile, settings =>
+    MSBuild(projectFileDir, settings =>
         settings.SetConfiguration(configuration));
 });
 
