@@ -20,7 +20,11 @@
 </PropertyGroup>
 
  <ItemGroup>
-    <None Include="license.txt" Pack="true" PackagePath=""/>
+    <None Include="license.txt">
+      <Pack>true</Pack>
+      <PackagePath></PackagePath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 <ItemGroup>

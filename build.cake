@@ -189,6 +189,7 @@ Task("Pack_Client")
         Tags                     = new [] {"TestTag"},
         RequireLicenseAcceptance = true,
         Files                    = new [] {
+            new NuSpecContent { Source = "net48/license.txt", Target = "" },
             new NuSpecContent { Source = "net48/TestForCi.Client.dll", Target = "lib/net48" },
             new NuSpecContent { Source = "net48/TestForCi.Client.xml", Target = "lib/net48" },
             new NuSpecContent { Source = "netstandard2.0/TestForCi.Client.dll", Target = "lib/netstandard2.0" },
