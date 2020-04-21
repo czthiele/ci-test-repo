@@ -166,7 +166,7 @@ Task("Pack_Client")
     .IsDependentOn("Build_Client")
     .Does(() =>
 {
-    var nugetVersion_Client = GetVersionNumber(buildDir_Definitions + Directory("net48") + File("TestForCi.Client.dll"));
+    var nugetVersion_Client = GetVersionNumber(buildDir_Client + Directory("net48") + File("TestForCi.Client.dll"));
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
 
     var nuGetPackSettings = new NuGetPackSettings {
