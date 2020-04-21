@@ -22,8 +22,7 @@
 <ItemGroup>
   <None Include="license.txt">
     <Pack>true</Pack>
-    <PackagePath>license.txt</PackagePath>
-    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <PackagePath>""</PackagePath>
   </None>
 </ItemGroup>
 
