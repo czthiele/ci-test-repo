@@ -23,6 +23,7 @@ var nugetVersion = "0.0.0";
 var isDeveloperBuild = BuildSystem.IsLocalBuild;
 
 var gitVersionInfo = GitVersion(new GitVersionSettings {
+    UpdateAssemblyInfo = false,
     OutputType = GitVersionOutput.Json
 });
 
