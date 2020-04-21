@@ -50,7 +50,7 @@ Task("UpdateAssemblyInfo")
     });
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
-    Information("Path test -> {0}", MakeAbsolute(Directory("./src")).FullPath)
+    Information("Path test -> {0}", MakeAbsolute(Directory("./src")).FullPath);
     Information("AssemblyVersion -> {0}", gitVersionInfo.AssemblySemVer);
     Information("AssemblyFileVersion -> {0}", $"{gitVersionInfo.MajorMinorPatch}.0");
     Information("AssemblyInformationalVersion -> {0}", gitVersionInfo.InformationalVersion);
