@@ -48,7 +48,7 @@ Task("UpdateAssemblyInfo")
     });
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
-    Information("VersionFromFile -> {0}", FileReadLines(File("GitVersion.yml")));
+    Information("VersionFromFile -> {0}", FileReadLines(new FilePath("src/CiTest_Client/Version.yml")));
     Information("AssemblyVersion -> {0}", gitVersionInfo.AssemblySemVer);
     Information("AssemblyFileVersion -> {0}", $"{gitVersionInfo.MajorMinorPatch}.0");
     Information("AssemblyInformationalVersion -> {0}", gitVersionInfo.InformationalVersion);
