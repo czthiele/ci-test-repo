@@ -44,7 +44,9 @@ Task("UpdateAssemblyInfo")
     gitVersionInfo = GitVersion(new GitVersionSettings {
         UpdateAssemblyInfo = true,
         OutputType = GitVersionOutput.Json,
-        ArgumentCustomization = args=>args.Append("-config './src/GitVersion.yml'")
+        EnvironmentVariables = new Dictionary<string, string>{
+        { "Build_SourcesDirectory", MakeAbsolute(Directory("./src")).FullPath }
+        }
     });
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
