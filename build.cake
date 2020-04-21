@@ -19,8 +19,8 @@ var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("
 var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
 
-var nugetVersion_Client = FileReadLines(new FilePath("src/CiTest_Client/Version.yml"));
-var nugetVersion_Definitions = FileReadLines(new FilePath("src/CiTest_Definitions/Version.yml"));
+var nugetVersion_Client = FileReadText(new FilePath("src/CiTest_Client/Version.yml"));
+var nugetVersion_Definitions = FileReadText(new FilePath("src/CiTest_Definitions/Version.yml"));
 
 var nugetVersion = "0.0.0";
 var isDeveloperBuild = BuildSystem.IsLocalBuild;
