@@ -45,12 +45,12 @@ Task("UpdateAssemblyInfo")
         UpdateAssemblyInfo = true,
         OutputType = GitVersionOutput.Json,
         EnvironmentVariables = new Dictionary<string, string>{
-        { "Build_SourcesDirectory", MakeAbsolute(Directory("./src")).FullPath }
+        { "Build.SourcesDirectory", MakeAbsolute(Directory("./src")).FullPath }
         }
     });
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
-
+    Information("Path test -> {0}", MakeAbsolute(Directory("./src")).FullPath)
     Information("AssemblyVersion -> {0}", gitVersionInfo.AssemblySemVer);
     Information("AssemblyFileVersion -> {0}", $"{gitVersionInfo.MajorMinorPatch}.0");
     Information("AssemblyInformationalVersion -> {0}", gitVersionInfo.InformationalVersion);
