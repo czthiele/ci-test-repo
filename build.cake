@@ -15,7 +15,8 @@ var configuration = Argument("configuration", "Release");
 // Define directories.
 var srcDir = Directory("./src");
 var solutionFile = srcDir + File("CiTest.sln");
-var projectFileDir = srcDir + Directory("CiTest_Definitions") + File("CiTest_Definitions.csproj");
+var projectFile_Definitions = srcDir + Directory("CiTest_Definitions") + File("CiTest_Definitions.csproj");
+var projectFile_Client = srcDir + Directory("CiTest_Client") + File("CiTest_Client.csproj");
 var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("bin") + Directory(configuration);
 var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
@@ -90,24 +91,24 @@ Task("Clean")
     CleanDirectory(artifactsDir);
 });
 
-Task("Restore")
+Task("Restore_Definitions")
     .Does(() =>
 {
-    NuGetRestore(projectFileDir);
+    NuGetRestore(projectFile_Definitions);
 });
 
-Task("Build")
+Task("Build_Definitions")
     .IsDependentOn("Clean")
-    .IsDependentOn("Restore")
+    .IsDependentOn("Restore_Definitions")
     .IsDependentOn("UpdateAssemblyInfo")
     .Does(() =>
 {
-    MSBuild(projectFileDir, settings =>
+    MSBuild(projectFile_Definitions, settings =>
         settings.SetConfiguration(configuration));
 });
 
 Task("Pack_Definitions")
-    .IsDependentOn("Build")
+    .IsDependentOn("Build_Definitions")
     .Does(() =>
 {
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
@@ -139,12 +140,27 @@ Task("Pack_Definitions")
 
     if (BuildSystem.IsRunningOnAppVeyor)
     {
-      BuildSystem.AppVeyor.UploadArtifact("artifacts/TestForCi.Definitions.0.1.0.nupkg");
+      BuildSystem.AppVeyor.UploadArtifact("artifacts/TestForCi.Definitions." + nugetVersion_Definitions + ".nupkg");
     }
 });
 
-Task("Pack_Client")
+Task("Restore_Client")
     .IsDependentOn("Pack_Definitions")
+    .Does(() =>
+{
+    NuGetRestore(projectFile_Client);
+});
+
+Task("Build_Client")
+    .IsDependentOn("Restore_Client")
+    .Does(() =>
+{
+    MSBuild(projectFile_Client, settings =>
+        settings.SetConfiguration(configuration));
+});
+
+Task("Pack_Client")
+    .IsDependentOn("Build_Client")
     .Does(() =>
 {
     var clientAssemblyInfo2 = ParseAssemblyInfo("./src/CiTest_Client/CiTest_Client.csproj");
@@ -179,7 +195,13 @@ Task("Pack_Client")
         OutputDirectory          = artifactsDir
     };
     NuGetPack(nuGetPackSettings);
+
+     if (BuildSystem.IsRunningOnAppVeyor)
+    {
+      BuildSystem.AppVeyor.UploadArtifact("artifacts/TestForCi.Client." + nugetVersion_Client + ".nupkg");
+    }
 });
+
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
