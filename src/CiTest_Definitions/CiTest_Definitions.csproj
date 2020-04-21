@@ -9,7 +9,7 @@
     <PropertyGroup Label="Assembly information">
       <AssemblyTitle>Just a test project.</AssemblyTitle>
       <AssemblyName>TestForCi.Definitions</AssemblyName>
-      <AssemblyVersion>1.0.0</AssemblyVersion>
+      <AssemblyVersion>0.1.2</AssemblyVersion>
       <Company>Alex GmbH</Company>
       <Copyright>Copyright © 2020 $(Company)</Copyright>
       <Description>Test Project for CI

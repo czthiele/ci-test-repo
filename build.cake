@@ -1,5 +1,6 @@
 ﻿#tool "nuget:?package=GitVersion.CommandLine"
 #addin "nuget:?package=Cake.FileHelpers"
+#addin nuget:?package=Cake.VersionReader
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -20,9 +21,6 @@ var projectFile_Client = srcDir + Directory("CiTest_Client") + File("CiTest_Clie
 var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("bin") + Directory(configuration);
 var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
-
-var nugetVersion_Client = FileReadLines(new FilePath("src/CiTest_Client/Version.yml"))[0];
-var nugetVersion_Definitions = FileReadLines(new FilePath("src/CiTest_Definitions/Version.yml"))[0];
 
 var nugetVersion = "0.0.0";
 var isDeveloperBuild = BuildSystem.IsLocalBuild;
@@ -111,6 +109,7 @@ Task("Pack_Definitions")
     .IsDependentOn("Build_Definitions")
     .Does(() =>
 {
+    var nugetVersion_Definitions = GetVersionNumber(new FilePath(buildDir_Definitions + "net48/TestForCi.Definitions.dll"));
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
 
     var nuGetPackSettings = new NuGetPackSettings {
@@ -168,11 +167,7 @@ Task("Pack_Client")
     .IsDependentOn("Build_Client")
     .Does(() =>
 {
-    var clientAssemblyInfo2 = ParseAssemblyInfo("./src/CiTest_Client/CiTest_Client.csproj");
-    Information("AssemblyVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyVersion);
-    Information("AssemblyFileVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyFileVersion);
-    Information("AssemblyInformationalVersion (Addin) -> {0}", clientAssemblyInfo2.AssemblyInformationalVersion);
-
+    var nugetVersion_Client = GetVersionNumber(new FilePath(buildDir_Definitions + "net48/TestForCi.Client.dll"));
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
 
     var nuGetPackSettings = new NuGetPackSettings {
@@ -199,7 +194,7 @@ Task("Pack_Client")
         },
         Dependencies             = new [] {
             new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" },
-            new NuSpecDependency { Id = "TestForCi.Definitions", Version = "0.1.1" }
+            new NuSpecDependency { Id = "TestForCi.Definitions", Version = nugetVersion_Definitions }
         },
         BasePath                 = buildDir_Client,
         OutputDirectory          = artifactsDir
