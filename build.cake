@@ -190,7 +190,7 @@ Task("Pack_Client")
         },
         Dependencies             = new [] {
             new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" },
-            new NuSpecDependency { Id = "TestForCi.Definitions", Version = "0.1.0" }
+            new NuSpecDependency { Id = "TestForCi.Definitions", Version = "0.1.1" }
         },
         BasePath                 = buildDir_Client,
         OutputDirectory          = artifactsDir
