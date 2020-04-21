@@ -110,6 +110,11 @@ Task("Pack_Definitions")
 {
     nugetVersion_Definitions = GetAssemblyVersion(buildDir_Definitions, "TestForCi.Definitions.dll");
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
+    var licenseFile = new NuSpecLicense
+    {
+        Type = "file",
+        Value = "license.txt"
+    };
 
     var nuGetPackSettings = new NuGetPackSettings {
         Id                       = "TestForCi.Definitions",
@@ -120,7 +125,7 @@ Task("Pack_Definitions")
         Description              = "Test description definitions",
         Summary                  = "Test summary definitions",
         ProjectUrl               = new Uri("https://github.com/czthiele/ci-test-repo"),
-        LicenseUrl               = new Uri("https://github.com/czthiele/ci-test-repo/blob/master/src/CiTest_Client/License.txt"),
+        License                  = licenseFile,
         Copyright                = string.Format("Copyright © {0}",DateTime.Now.Year),
         ReleaseNotes             = releaseNotes,
         Tags                     = new [] {"TestTag definitions"},
