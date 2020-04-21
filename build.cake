@@ -168,6 +168,11 @@ Task("Pack_Client")
 {
     var nugetVersion_Client = GetAssemblyVersion(buildDir_Client, "TestForCi.Client.dll");
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
+    var licenseFile = new NuSpecLicense
+    {
+        type = "file",
+        value = FilePath("License_test.txt")
+    };
 
     var nuGetPackSettings = new NuGetPackSettings {
         Id                       = "TestForCi.Client",
@@ -178,7 +183,7 @@ Task("Pack_Client")
         Description              = "Test description",
         Summary                  = "Test summary",
         ProjectUrl               = new Uri("https://github.com/czthiele/ci-test-repo"),
-        LicenseUrl               = new Uri("https://github.com/czthiele/ci-test-repo/blob/master/src/CiTest_Client/License.txt"),
+        License                  = licenseFile,
         Copyright                = string.Format("Copyright © {0}",DateTime.Now.Year),
         ReleaseNotes             = releaseNotes,
         Tags                     = new [] {"TestTag"},
