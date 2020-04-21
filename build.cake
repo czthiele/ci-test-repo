@@ -131,6 +131,7 @@ Task("Pack_Definitions")
         Tags                     = new [] {"TestTag definitions"},
         RequireLicenseAcceptance = true,
         Files                    = new [] {
+            new NuSpecContent { Source = "net48/license.txt", Target = "" },
             new NuSpecContent { Source = "net48/TestForCi.Definitions.dll", Target = "lib/net48" },
             new NuSpecContent { Source = "net48/TestForCi.Definitions.xml", Target = "lib/net48" },
             new NuSpecContent { Source = "netstandard2.0/TestForCi.Definitions.dll", Target = "lib/netstandard2.0" },
