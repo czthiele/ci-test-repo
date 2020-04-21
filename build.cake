@@ -93,7 +93,7 @@ Task("Clean")
 Task("Restore")
     .Does(() =>
 {
-    NuGetRestore(solutionFile);
+    NuGetRestore(projectFileDir);
 });
 
 Task("Build")
