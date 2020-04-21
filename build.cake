@@ -52,7 +52,7 @@ Task("UpdateAssemblyInfo")
         OutputType = GitVersionOutput.Json
     });
 
-    Information("Location of nuget -> {0}", "artifacts/TestForCi.Client." + nugetVersion_Client + ".nupkg");
+    Information("Location of nuget -> {0}", ("artifacts/TestForCi.Client." + nugetVersion_Client + ".nupkg").Replace(System.Environment.NewLine, "replacement text");
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
     Information("nugetVersion_Client -> {0}", nugetVersion_Client);
     Information("nugetVersion_Definitions -> {0}", nugetVersion_Definitions);
