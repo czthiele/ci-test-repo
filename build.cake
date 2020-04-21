@@ -1,6 +1,5 @@
 ﻿#tool "nuget:?package=GitVersion.CommandLine"
 #addin "nuget:?package=Cake.FileHelpers"
-#addin nuget:?package=Cake.VersionReader
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -43,14 +42,12 @@ Task("UpdateAssemblyInfo")
     .Does(() =>
 {
     gitVersionInfo = GitVersion(new GitVersionSettings {
-        UpdateAssemblyInfo = true,
-        OutputType = GitVersionOutput.Json,
-        EnvironmentVariables = new Dictionary<string, string>{
-        { "Build.SourcesDirectory", MakeAbsolute(Directory("./src")).FullPath }
-        }
+        UpdateAssemblyInfo = false,
+        OutputType = GitVersionOutput.Json
     });
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
+    Information("VersionFromFile -> {0}", FileReadLines(File("GitVersion.yml")));
     Information("AssemblyVersion -> {0}", gitVersionInfo.AssemblySemVer);
     Information("AssemblyFileVersion -> {0}", $"{gitVersionInfo.MajorMinorPatch}.0");
     Information("AssemblyInformationalVersion -> {0}", gitVersionInfo.InformationalVersion);
