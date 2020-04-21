@@ -52,7 +52,6 @@ Task("UpdateAssemblyInfo")
         OutputType = GitVersionOutput.Json
     });
 
-    Information("Location of nuget -> {0}", ("artifacts/TestForCi.Client." + nugetVersion_Client + ".nupkg"));
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
     Information("nugetVersion_Client -> {0}", nugetVersion_Client);
     Information("nugetVersion_Definitions -> {0}", nugetVersion_Definitions);
@@ -191,7 +190,12 @@ Task("Pack_Client")
         Tags                     = new [] {"TestTag"},
         RequireLicenseAcceptance = true,
         Files                    = new [] {
+            new NuSpecContent { Source = "net48/TestForCi.Client.dll", Target = "lib/net48" },
+            new NuSpecContent { Source = "net48/TestForCi.Client.xml", Target = "lib/net48" },
+            new NuSpecContent { Source = "netstandard2.0/TestForCi.Client.dll", Target = "lib/netstandard2.0" },
+            new NuSpecContent { Source = "netstandard2.0/TestForCi.Client.xml", Target = "lib/netstandard2.0" },
             new NuSpecContent { Source = "netcoreapp3.1/TestForCi.Client.dll", Target = "lib/netcoreapp3.1" },
+            new NuSpecContent { Source = "netcoreapp3.1/TestForCi.Client.xml", Target = "lib/netcoreapp3.1" },
         },
         Dependencies             = new [] {
             new NuSpecDependency { Id = "Newtonsoft.Json", Version = "12.0.3" },
