@@ -22,6 +22,7 @@ var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("
 var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
 
+var nugetVersion_Definitions = "0.0.0"
 var nugetVersion = "0.0.0";
 var isDeveloperBuild = BuildSystem.IsLocalBuild;
 
@@ -51,8 +52,6 @@ Task("UpdateAssemblyInfo")
     });
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
-    Information("nugetVersion_Client -> {0}", nugetVersion_Client);
-    Information("nugetVersion_Definitions -> {0}", nugetVersion_Definitions);
     Information("AssemblyVersion -> {0}", gitVersionInfo.AssemblySemVer);
     Information("AssemblyFileVersion -> {0}", $"{gitVersionInfo.MajorMinorPatch}.0");
     Information("AssemblyInformationalVersion -> {0}", gitVersionInfo.InformationalVersion);
@@ -109,7 +108,7 @@ Task("Pack_Definitions")
     .IsDependentOn("Build_Definitions")
     .Does(() =>
 {
-    var nugetVersion_Definitions = GetVersionNumber(new FilePath(buildDir_Definitions + "net48/TestForCi.Definitions.dll"));
+    nugetVersion_Definitions = GetVersionNumber(new FilePath(buildDir_Definitions + "net48/TestForCi.Definitions.dll"));
     var releaseNotes = FileReadLines(File("WHATSNEW.txt"));
 
     var nuGetPackSettings = new NuGetPackSettings {
