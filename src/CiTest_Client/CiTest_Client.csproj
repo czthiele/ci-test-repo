@@ -22,7 +22,7 @@
 <ItemGroup>
   <None Include="license.txt">
     <Pack>true</Pack>
-    <PackagePath>"license.txt"</PackagePath>
+    <PackagePath>license.txt</PackagePath>
   </None>
 </ItemGroup>
 
