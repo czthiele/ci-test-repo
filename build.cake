@@ -19,6 +19,9 @@ var buildDir_Definitions = srcDir + Directory("CiTest_Definitions")+ Directory("
 var buildDir_Client = srcDir + Directory("CiTest_Client")+ Directory("bin") + Directory(configuration);
 var artifactsDir = Directory("./artifacts");
 
+var nugetVersion_Client = FileReadLines(new FilePath("src/CiTest_Client/Version.yml"));
+var nugetVersion_Definitions = FileReadLines(new FilePath("src/CiTest_Definitions/Version.yml"));
+
 var nugetVersion = "0.0.0";
 var isDeveloperBuild = BuildSystem.IsLocalBuild;
 
@@ -48,7 +51,8 @@ Task("UpdateAssemblyInfo")
     });
 
     nugetVersion = isDeveloperBuild ? "0.0.0" : gitVersionInfo.NuGetVersion;
-    Information("VersionFromFile -> {0}", FileReadLines(new FilePath("src/CiTest_Client/Version.yml")));
+    Information("nugetVersion_Client -> {0}", nugetVersion_Client);
+    Information("nugetVersion_Definitions -> {0}", nugetVersion_Definitions);
     Information("AssemblyVersion -> {0}", gitVersionInfo.AssemblySemVer);
     Information("AssemblyFileVersion -> {0}", $"{gitVersionInfo.MajorMinorPatch}.0");
     Information("AssemblyInformationalVersion -> {0}", gitVersionInfo.InformationalVersion);
@@ -109,7 +113,7 @@ Task("Pack_Definitions")
 
     var nuGetPackSettings = new NuGetPackSettings {
         Id                       = "TestForCi.Definitions",
-        Version                  = nugetVersion,
+        Version                  = nugetVersion_Definitions,
         Title                    = "Just test title",
         Authors                  = new[] {"Alex GmbH"},
         Owners                   = new[] {"Alex GmbH"},
@@ -151,7 +155,7 @@ Task("Pack_Client")
 
     var nuGetPackSettings = new NuGetPackSettings {
         Id                       = "TestForCi.Client",
-        Version                  = nugetVersion,
+        Version                  = nugetVersion_Client,
         Title                    = "Just test title",
         Authors                  = new[] {"Alex GmbH"},
         Owners                   = new[] {"Alex GmbH"},
